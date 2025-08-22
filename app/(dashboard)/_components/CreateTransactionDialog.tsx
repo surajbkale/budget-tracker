@@ -98,7 +98,7 @@ function CreateTransactionDialog({ trigger, type }: Props) {
                 name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Amount</FormLabel>
+                    <FormLabel>Category</FormLabel>
                     <FormControl>
                       <CategoryPicker type={type} />
                     </FormControl>
