@@ -17,18 +17,26 @@ import {
 import { Category } from "@/lib/generated/prisma";
 import { TransactionType } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import CreateCategoryDialog from "./CreateCategoryDialog";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Props {
   type: TransactionType;
+  onChange: (value: string) => void;
 }
 
-function CategoryPicker({ type }: Props) {
+function CategoryPicker({ type, onChange }: Props) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+
+  useEffect(() => {
+    if (!value) return;
+
+    // when the value changes, call onChange callback
+    onChange(value);
+  }, [onChange, value]);
 
   const categoriesQuery = useQuery({
     queryKey: ["categories", type],
