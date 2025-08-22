@@ -17,7 +17,7 @@ import {
 import { Category } from "@/lib/generated/prisma";
 import { TransactionType } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useCallback } from "react";
 import CreateCategoryDialog from "./CreateCategoryDialog";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -38,6 +38,14 @@ function CategoryPicker({ type }: Props) {
 
   const selectedCategory = categoriesQuery.data?.find(
     (category: Category) => category.name === value
+  );
+
+  const successCallback = useCallback(
+    (category: Category) => {
+      setValue(category.name);
+      setOpen((prev) => !prev);
+    },
+    [setValue, setOpen]
   );
 
   return (
@@ -64,7 +72,7 @@ function CategoryPicker({ type }: Props) {
           }}
         >
           <CommandInput placeholder="Search category..." />
-          <CreateCategoryDialog type={type} />
+          <CreateCategoryDialog type={type} successCallback={successCallback} />
           <CommandEmpty>
             <p>Category not found</p>
             <p className="text-xs text-muted-foreground">
