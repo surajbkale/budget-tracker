@@ -8,6 +8,7 @@ import { fr } from "date-fns/locale";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import StatsCard from "./StatsCards";
+import CategoriesStats from "./CategoriesStats";
 
 function Overview({ userSettings }: { userSettings: UserSettings }) {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
@@ -41,6 +42,12 @@ function Overview({ userSettings }: { userSettings: UserSettings }) {
       </div>
       <div className="container flex w-full px-6 flex-col gap-2">
         <StatsCard
+          userSettings={userSettings}
+          from={dateRange.from}
+          to={dateRange.to}
+        />
+
+        <CategoriesStats
           userSettings={userSettings}
           from={dateRange.from}
           to={dateRange.to}
