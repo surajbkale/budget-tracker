@@ -38,6 +38,8 @@ export async function GET(request: Request) {
     month: queryParams.data.month,
     year: queryParams.data.year,
   });
+
+  return Response.json(data);
 }
 
 export type GetHistoryDataResponseType = Awaited<
@@ -136,7 +138,7 @@ async function getMonthHistoryData(
   const history: HistoryData[] = [];
 
   const daysInMonth = getDaysInMonth(new Date(year, month));
-  
+
   for (let i = 1; i <= daysInMonth; i++) {
     let expense = 0;
     let income = 0;
