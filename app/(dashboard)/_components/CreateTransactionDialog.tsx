@@ -151,7 +151,11 @@ function CreateTransactionDialog({ trigger, type }: Props) {
                 <FormItem>
                   <FormLabel>Amount</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="number"
+                      {...field}
+                      value={field.value as number | string | undefined}
+                    />
                   </FormControl>
                   <FormDescription>
                     Transaction amount (required)
