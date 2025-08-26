@@ -2,7 +2,6 @@ import { GetFormatterForCurrency } from "@/lib/helpers";
 import prisma from "@/lib/prisma";
 import { OverviewQuerySchema } from "@/schema/overview";
 import { currentUser } from "@clerk/nextjs/server";
-import { error } from "console";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
@@ -32,8 +31,12 @@ export async function GET(request: Request) {
     queryParams.data.to
   );
 
-  return transactions;
+  return Response.json(transactions);
 }
+
+export type GetTransactionHistoryResponseType = Awaited<
+  ReturnType<typeof getTransactionHistory>
+>;
 
 async function getTransactionHistory(userId: string, from: Date, to: Date) {
   const userSettings = await prisma.userSettings.findUnique({
